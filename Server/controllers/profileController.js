@@ -1,13 +1,13 @@
 const Profile = require("../models/Profile");
 const mongoose = require("mongoose")
 
-//get all profiles
+//getting all profiles
 const getProfiles = async (req, res) => {
   const profiles = await Profile.find({}).sort({ createsAt: -1 });
   res.status(200).json(profiles);
 };
 
-//get single profile
+//getting single profile
 const getProfile = async (req, res) => {
   const { id } = req.params;
   if(!mongoose.Types.ObjectId.isValid(id)){
@@ -21,7 +21,7 @@ const getProfile = async (req, res) => {
   res.status(200).json(profile);
 };
 
-//create a new profile
+//creating a new profile
 const createProfile = async (req, res) => {
   const {
     first_name,
@@ -42,7 +42,7 @@ const createProfile = async (req, res) => {
     url6,
   } = req.body;
 
-  //add doc to db
+  //adding doc to db
 
   try {
     const profile = await Profile.create({
@@ -69,7 +69,7 @@ const createProfile = async (req, res) => {
   }
 };
 
-//delete a profile
+//deleting a profile
 const deleteProfile = async(req, res)=>{
     const {id} = req.params
     if(!mongoose.Types.ObjectId.isValid(id)){
@@ -86,7 +86,7 @@ const deleteProfile = async(req, res)=>{
 }
 
 
-//update a profile
+//updating a profile
 const updateProfile = async(req,res)=>{
     const {id} = req.params
     if(!mongoose.Types.ObjectId.isValid(id)){

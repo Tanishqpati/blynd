@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "./SuccessModal.css";
 
 const SuccessModal = () => {
@@ -13,14 +13,16 @@ const SuccessModal = () => {
             Great! <br />
             Your account has been <br /> created successfully
           </h3>
-          <button
-            className="home-btn"
-            onClick={() => {
-              navigate("/dashboard/matches");
-            }}
-          >
-            Go to Home
-          </button>
+          <Link to="/dashboard/matches">
+            <button
+              className="home-btn"
+              // onClick={() => {
+              //   navigate("/dashboard/matches");
+              // }}
+            >
+              Go to Home
+            </button>
+          </Link>
         </div>
       </div>
     </>

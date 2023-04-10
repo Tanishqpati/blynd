@@ -1,16 +1,15 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Interest.css";
-import { MyContext } from "../../context/MyContextProvider";
 
 const Interest = () => {
   const navigate = useNavigate();
   const [interest, setInterest] = useState("");
   const isFormValid = interest;
-  const { handleUserInput } = useContext(MyContext);
 
   const handleNext = () => {
-    handleUserInput({ interest });
+    localStorage.setItem('gender_interest', interest);
+
     navigate("/more-info");
   };
 
@@ -26,7 +25,7 @@ const Interest = () => {
           <img src="/assets/Back.png" alt="" />
         </div>
 
-        <h2>Who you want to date?</h2>
+        <h2 id="interest-question">Who you want to date?</h2>
 
         <div className="gender-input-container">
           <div

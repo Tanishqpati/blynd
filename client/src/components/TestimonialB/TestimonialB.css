@@ -1,6 +1,6 @@
 .carousel-root {
   width: 100% !important;
-  margin: auto !important;
+  margin: auto;
   padding-top: 2rem;
   padding-bottom: 5rem;
   background-color: white;
@@ -45,7 +45,7 @@
   margin-bottom: 4px;
   font-weight: 600;
   text-transform: uppercase;
-  font-size: 1.7rem;
+  font-size: 2.5rem;
 }
 
 .myCarousel h4 {
@@ -54,7 +54,7 @@
   padding-top: 0;
   font-weight: 500;
   color: #787878;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
 }
 
 .myCarousel p {
@@ -107,12 +107,13 @@ button.control-arrow {
   .carousel-root {
     outline: 0;
     width: 100% !important;
-    margin: auto !important;
+    margin: 0 !important;
   }
 
   .carousel.carousel-slider .control-arrow {
     display: none !important;
   }
+
   .myCarousel {
     background: #fafafa;
     margin-top: -9%;

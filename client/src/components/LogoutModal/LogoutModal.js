@@ -23,7 +23,6 @@ const LogoutModal = (props) => {
           className="yes-logout"
           onClick={() => {
             logout();
-            navigate("/");
           }}
         >
           Yes, I want to logout

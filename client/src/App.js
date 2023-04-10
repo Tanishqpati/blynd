@@ -1,8 +1,5 @@
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { useAuthContext } from "./hooks/useAuthContext";
-// import { useEffect, useState } from "react";
-// import axios from "axios";
 import HomePage from "./pages/HomePage";
 import Signup from "./pages/Signup/Signup";
 import Login from "./pages/Login/Login";
@@ -16,106 +13,117 @@ import SelectInterest from "./pages/SelectInterest/SelectInterest";
 import Settings from "./pages/Settings/Settings";
 import DateProfile from "./pages/DateProfile/DateProfile";
 import ContactFaqs from "./pages/ContactFaqs/ContactFaqs";
-import { MyContextProvider } from "./context/MyContextProvider";
 import { Navigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
+import { useEffect, useState } from "react";
 
 function App() {
-  const { user } = useAuthContext();
+  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+  const AuthToken = cookies.AuthToken;
+  // const [AuthToken, setAuthToken] = useState();
+  // useEffect(() => {
+  //   setAuthToken(cookies.AuthToken);
+  // }, []);
+  // useEffect(() => {
+  //   console.log(AuthToken);
+  // })
 
-  // const [user, setUser] = useState(null);
+  // useEffect(() => {
+   
+  //   setAuthToken(cookies.AuthToken);
+  //   console.log(AuthToken)
+  // }, [])
+  
 
-	// const getUser = async () => {
-	// 	try {
-	// 		const url = `${process.env.REACT_APP_API_URL}/auth/login/success`;
-	// 		const { data } = await axios.get(url, { withCredentials: true });
-	// 		setUser(data.user._json);
-	// 	} catch (err) {
-	// 		console.log(err);
-	// 	}
-	// };
-
-	// useEffect(() => {
-	// 	getUser();
-	// }, []);
+  // const user = JSON.parse(localStorage.getItem('user'));
 
   return (
     <BrowserRouter>
-      <MyContextProvider>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <HomePage />
-            }
-          />
-          <Route
-            path="/login"
-            element={!user ? <Login /> : <Navigate to="/dashboard/matches" />}
-          />
-          <Route
-            path="/signup"
-            element={!user ? <Signup /> : <Navigate to="/dashboard/matches" />}
-          />
-          <Route
-            path="/name"
-            // element={
-            //   !user ? <NamePage /> : <Navigate to="/dashboard/matches" />
-            // }
-             element={<NamePage />}
-          />
-          <Route
-            path="/gender"
-            // element={
-            //   !user ? <GenderPage /> : <Navigate to="/dashboard/matches" />
-            // }
-            element={<GenderPage />}
-          />
-          <Route
-            path="/interest"
-            // element={
-            //   !user ? <Interest /> : <Navigate to="/dashboard/matches" />
-            // }
-            element={<Interest />}
-          />
-          <Route
-            path="/more-info"
-            // element={
-            //   !user ? <MoreInfoPage /> : <Navigate to="/dashboard/matches" />
-            // }
-            element={<MoreInfoPage />}
-          />
-          <Route
-            path="/select-interest"
-            // element={
-            //   !user ? <SelectInterest /> : <Navigate to="/dashboard/matches" />
-            // }
-            element={<SelectInterest />}
-          />
-          <Route
-            path="/upload-pictures"
-            // element={
-            //   !user ? <UploadPicture /> : <Navigate to="/dashboard/matches" />
-            // }
-            element={<UploadPicture />}
-          />
-          <Route
-            path="/dashboard/matches"
-            element={user ? <Dashboard /> : <Navigate to="/login" />}
-          />
-          <Route
-            path="/profile/editprofile"
-            element={user ? <DateProfile /> : <Navigate to="/login" />}
-          />
-          <Route
-            path="/profile/settings"
-            element={user ? <Settings /> : <Navigate to="/login" />}
-          />
-          <Route
-            path="/profile/contactfaqs"
-            element={user ? <ContactFaqs /> : <Navigate to="/login" />}
-          />
-        </Routes>
-      </MyContextProvider>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route
+          path="/login"
+          element={
+            !AuthToken ? <Login /> : <Navigate to="/dashboard/matches" />
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            !AuthToken ? <Signup /> : <Navigate to="/dashboard/matches" />
+          }
+        />
+        <Route
+          path="/name"
+          element={
+            !AuthToken ? <NamePage /> : <Navigate to="/dashboard/matches" />
+          }
+          // element={<NamePage />}
+        />
+        <Route
+          path="/gender"
+          element={
+            !AuthToken ? <GenderPage /> : <Navigate to="/dashboard/matches" />
+          }
+          // element={<GenderPage />}
+        />
+        <Route
+          path="/interest"
+          element={
+            !AuthToken ? <Interest /> : <Navigate to="/dashboard/matches" />
+          }
+          // element={<Interest />}
+        />
+        <Route
+          path="/more-info"
+          element={
+            !AuthToken ? <MoreInfoPage /> : <Navigate to="/dashboard/matches" />
+          }
+          // element={<MoreInfoPage />}
+        />
+        <Route
+          path="/select-interest"
+          element={
+            !AuthToken ? (
+              <SelectInterest />
+            ) : (
+              <Navigate to="/dashboard/matches" />
+            )
+          }
+          // element={<SelectInterest />}
+        />
+        <Route
+          path="/upload-pictures"
+          element={
+            !AuthToken ? (
+              <UploadPicture />
+            ) : (
+              <Navigate to="/dashboard/matches" />
+            )
+          }
+          // element={<UploadPicture />}
+        />
+        <Route
+          path="/dashboard/matches"
+          // element={AuthToken ? <Dashboard /> : <Navigate to="/login" />}
+          element={<Dashboard />}
+        />
+        <Route
+          path="/profile/editprofile"
+          element={AuthToken ? <DateProfile /> : <Navigate to="/login" />}
+          // element={<DateProfile />}
+        />
+        <Route
+          path="/profile/settings"
+          element={AuthToken ? <Settings /> : <Navigate to="/login" />}
+          // element={<Settings />}
+        />
+        <Route
+          path="/profile/contactfaqs"
+          element={AuthToken ? <ContactFaqs /> : <Navigate to="/login" />}
+          // element={<ContactFaqs />}
+        />
+      </Routes>
     </BrowserRouter>
   );
 }

@@ -28,7 +28,8 @@
   text-align: center;
   color: #FF7676;
 }
-.dob-container{
+
+.dob-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -36,16 +37,17 @@
   gap: 1rem;
 
 }
-.dob-container input{
+
+.dob-container input {
   background: #FFFFFF;
-border: 1px solid #000000;
-border-radius: 10px;
-width: 85px;
-height: 40px;
-text-align: center;
+  border: 1px solid #000000;
+  border-radius: 10px;
+  width: 85px;
+  height: 40px;
+  text-align: center;
 }
 
-.height-container{
+.height-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -53,46 +55,49 @@ text-align: center;
   gap: 1rem;
 }
 
-.height-container p{
+.height-container p {
   font-weight: 700;
   font-size: 16px;
   text-align: center;
   color: #FF7676;
 }
 
-.height-container input{
+.height-container input {
   background: #FFFFFF;
-border: 1px solid #000000;
-border-radius: 10px;
-width: 85px;
-height: 40px;
-text-align: center;
+  border: 1px solid #000000;
+  border-radius: 10px;
+  width: 85px;
+  height: 40px;
+  text-align: center;
 
 }
-.container-row2{
+
+.container-row2 {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   gap: 1rem;
 }
-.container-row2 p{
+
+.container-row2 p {
   font-weight: 700;
   font-size: 16px;
   text-align: center;
-  color: #FF7676; 
+  color: #FF7676;
 }
-.container-row2 input{
+
+.container-row2 input {
   background: #FFFFFF;
-border: 1px solid #000000;
-border-radius: 10px;
-width: 480px;
-height: 50px;
-font-size: 1.3rem;
-display: flex;
-justify-content: flex-start;
-align-items: flex-start;
-padding: 10px;
+  border: 1px solid #000000;
+  border-radius: 10px;
+  width: 480px;
+  height: 50px;
+  font-size: 1.3rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 10px;
 }
 
 .progress-moreinfo {
@@ -102,5 +107,70 @@ padding: 10px;
   border-radius: 1rem;
 }
 
+@media (max-width: 768px) {
+  .container-row1 {
+    flex-direction: column;
+    margin-bottom: 5rem;
+    gap: 5rem;
+  }
 
+  .dob-container input {
+    font-size: 2rem;
+  }
 
+  .height-container input {
+    font-size: 2rem;
+  }
+
+  .container-row2 {
+    width: 100%;
+    margin-bottom: 8rem;
+  }
+
+  .container-row2 input {
+    width: 90%;
+    font-size: 2rem;
+  }
+
+  .interest-container {
+    margin-bottom: 12rem;
+  }
+
+  .image-container {
+    margin-bottom: 19rem;
+  }
+
+  .next-btn-cont {
+    padding: 0 4rem;
+  }
+
+  .next-btn p {
+    font-size: 2rem;
+  }
+
+  .modal-wrapper {
+    align-items: flex-end;
+  }
+
+  .modal-cont {
+    max-width: 100%;
+    gap: 6rem;
+    width: 100%;
+    border-radius: 2rem 2rem 0 0;
+  }
+
+  .modal-cont button {
+    width: 100%;
+    height: 5rem;
+    font-size: 2rem;
+  }
+
+  .modal-cont h3 {
+    font-size: 3rem;
+  }
+
+  .modal-cont img {
+    height: 15rem;
+    margin-top: 3rem;
+  }
+}

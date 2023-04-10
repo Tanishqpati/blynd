@@ -1,29 +1,52 @@
 import React from "react";
 import { useState } from "react";
+import { useEffect } from "react";
 import { useSignup } from "../../hooks/useSignup";
 import "./Signup.css";
 import { useNavigate } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 
 const Signup = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [user, setUser] = useState({});
+  // const [confirmPassword, setConfirmPassword] = useState("");
   const { signup, error, isLoading } = useSignup();
-
-  const googleAuth = () => {
-    window.open(
-      `${process.env.REACT_APP_API_URL}/auth/google/callback`,
-      "_self"
-    );
-  };
 
   const handelClick = async (e) => {
     e.preventDefault();
-    await signup(email, password);
+    const finalName = name.split(" ");
+    await signup(finalName[0], email, password);
   };
-  const passwordError =
-    password === confirmPassword ? "" : "Password must match";
+
+  function handleCallbackResponse(response) {
+    // console.log("Encoded JWT  ID token: " + response.credential);
+    var userObject = jwt_decode(response.credential);
+    setUser(userObject);
+    localStorage.setItem("user", JSON.stringify(userObject));
+    navigate("/name");
+  }
+
+  useEffect(() => {
+    /* global google */
+    google.accounts.id.initialize({
+      client_id:
+        "786188419159-ldtllegicson9td6oso3nb54nuk8lakb.apps.googleusercontent.com",
+      callback: handleCallbackResponse,
+    });
+
+    google.accounts.id.renderButton(document.getElementById("signInDiv"), {
+      theme: "none",
+      size: "medium",
+    });
+
+    google.accounts.id.prompt();
+    localStorage.clear();
+  }, []);
+  // const passwordError =
+  //   password === confirmPassword ? "" : "Password must match";
 
   return (
     <>
@@ -47,13 +70,27 @@ const Signup = () => {
         <div className="signup-form-section">
           <h1>Create Account</h1>
 
-          <button className="cwg" onClick={googleAuth}>
-            <img src="/assets/google.svg" alt="" />
-            <p>Continue with Google</p>
-          </button>
+          <div id="signInDiv"></div>
+          {/* <button className="cwg">
+            
+          </button> */}
           <p id="or">- OR -</p>
 
           <form onSubmit={handelClick} className="signup-input-container">
+            <div className="input-container">
+              <input
+                type="text"
+                name="name"
+                required={true}
+                className="input-field"
+                placeholder="Name"
+                value={name}
+                onChange={(e) => {
+                  setName(e.target.value);
+                }}
+              />
+            </div>
+
             <div className="input-container">
               <input
                 type="email"
@@ -66,7 +103,6 @@ const Signup = () => {
                   setEmail(e.target.value);
                 }}
               />
-              {/* {errors.email && touched.email ? <p>{errors.email}</p> : null} */}
             </div>
 
             <div className="input-container">
@@ -81,12 +117,9 @@ const Signup = () => {
                   setPassword(e.target.value);
                 }}
               />
-              {/* {errors.password && touched.password ? (
-                <p>{errors.password}</p>
-              ) : null} */}
             </div>
 
-            <div className="input-container">
+            {/* <div className="input-container">
               <input
                 type="password"
                 required={true}
@@ -100,14 +133,11 @@ const Signup = () => {
               />
 
               {passwordError ? <p>{passwordError}</p> : null}
-            </div>
+            </div> */}
 
-            <input
-              type="submit"
-              placeholder="Signup"
-              disabled={isLoading && !passwordError}
-              className="signup-btn"
-            />
+            <button className="signup-btn" type="submit" disabled={isLoading}>
+              Sign up
+            </button>
           </form>
           <div className="login-text">
             <p>Already have an account?</p>

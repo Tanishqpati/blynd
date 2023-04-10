@@ -1,19 +1,49 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useLogin } from "../../hooks/useLogin"
+import { useLogin } from "../../hooks/useLogin";
+import jwt_decode from "jwt-decode"
+import { useEffect } from "react";
 
 
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
+  // const [user, setUser] = useState({});
+
   const [password, setPassword] = useState("");
-  const {login, error, isLoading} = useLogin()
+  const { login, error, isLoading } = useLogin();
 
   const handelClick = async (e) => {
     e.preventDefault();
-    await login(email, password)
+    await login(email, password);
   };
 
+
+  function handleCallbackResponse(response) {
+    // console.log("Encoded JWT  ID token: " + response.credential);
+    var userObject = jwt_decode(response.credential);
+    // setUser(userObject);
+    localStorage.setItem("user", JSON.stringify(userObject));
+    navigate("/name");
+  }
+
+  useEffect(() => {
+    /* global google */
+    google.accounts.id.initialize({
+      client_id:
+        "786188419159-ldtllegicson9td6oso3nb54nuk8lakb.apps.googleusercontent.com",
+      callback: handleCallbackResponse,
+    });
+
+    google.accounts.id.renderButton(document.getElementById("signInDiv"), {
+      theme: "none",
+      size: "medium",
+    });
+
+    google.accounts.id.prompt();
+    // eslint-disable-next-line
+    // localStorage.clear()
+  }, []);
 
   return (
     <>
@@ -30,12 +60,13 @@ const Login = () => {
           </p>
         </div>
         <div className="signup-form-section">
-          <h1>Login</h1>
+          <h1>Login Account</h1>
 
-          <button className="cwg">
+          {/* <button className="cwg">
             <img src="/assets/google.svg" alt="" />
             <p>Continue with Google</p>
-          </button>
+          </button> */}
+          <div id="signInDiv"></div>
           <p id="or">- OR -</p>
 
           <form onSubmit={handelClick} className="signup-input-container">
@@ -69,9 +100,27 @@ const Login = () => {
                 <p>{errors.password}</p>
               ) : null} */}
             </div>
+            <div className="input-container" style={{ visibility: "hidden" }}>
+              <input
+                type="password"
+                name="password"
+                className="input-field"
+                required={true}
+                placeholder="Password"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+              />
+              {/* {errors.password && touched.password ? (
+                <p>{errors.password}</p>
+              ) : null} */}
+            </div>
 
-
-            <input type="submit" placeholder="Signup" disabled={isLoading}  className="signup-btn" />
+            {/* <input type="submit" placeholder="" disabled={isLoading}  className="signup-btn" /> */}
+            <button className="signup-btn" type="submit" disabled={isLoading}>
+              Sign in
+            </button>
           </form>
           <div className="login-text">
             <p>Don't have an account?</p>

@@ -1,17 +1,15 @@
-import React, { useContext, useState } from "react";
+import React, {  useState } from "react";
 import "./GenderPage.css";
 import { useNavigate } from "react-router-dom";
-import { MyContext } from '../../context/MyContextProvider';
 
 
 const GenderPage = () => {
   const navigate = useNavigate();
   const [gender, setGender] = useState("");
   const isFormValid = gender;
-  const { handleUserInput } = useContext(MyContext);
 
   const handleNext = () => {
-    handleUserInput({ gender });
+    localStorage.setItem('gender_identity', gender);
     navigate("/interest");
   };
 

@@ -3,6 +3,7 @@ html {
 }
 .container {
   margin: auto;
+  padding: 1rem;
 
   display: flex;
   justify-content: space-between;
@@ -92,29 +93,51 @@ html {
     display: block;
     cursor: pointer;
   }
+  .container{
+    padding: 3rem;
+  }
 
   .nav-elements {
     position: absolute;
     right: 0;
-    top: 6.0rem;
+    top: 7.0rem;
     background-color: #6F9489;
     width: 0px;
     height: calc(100vh - 6.0rem);
     transition: all 0.3s ease-in;
     overflow: hidden;
   }
+  .nav-elements ul a{
+    text-align: center;
+    font-size: 2.1rem;
+  }
+
 
   .nav-elements.active {
-    width: 27.0rem;
+    width: 35.0rem;
   }
 
   .nav-elements ul {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .nav-elements ul :not(:last-child){
+    padding-left: 2rem !important;
   }
 
   .nav-elements ul li {
-    margin-right: unset;
+    /* margin-right: unset; */
+    font-size: 1.7rem;
     margin-top: 2.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #signin{
+    width: 20rem;
+    height: 5rem;
+    border-radius: 10rem;
   }
 }

@@ -2,8 +2,6 @@ import React from 'react';
 import {
   MDBFooter,
   MDBContainer,
-  MDBCol,
-  MDBRow,
   MDBIcon,
   MDBBtn
 } from 'mdb-react-ui-kit';
@@ -87,7 +85,7 @@ const Footer = () => {
           style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
         >
           © 2023 Copyright:
-          <a className="text-white" href="#">&nbsp;BLYND</a>
+          <a className="text-white" href="#!">&nbsp;BLYND</a>
         </div>
       </MDBFooter>
     </div>

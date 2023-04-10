@@ -17,7 +17,10 @@ router.get("/", getProfiles);
 router.get("/:id", getProfile);
 
 //post a profile
-router.post("/", createProfile);
+// router.post("/", createProfile);
+
+// adding the data in the current data
+router.put("/", createProfile)
 
 //Delete a profile
 router.delete("/:id", deleteProfile);

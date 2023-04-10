@@ -150,3 +150,24 @@
   width: 15.5rem;
   height: 14.4rem;
 }
+
+@media (max-width: 768px) {
+  .gender-input-container{
+    margin-top: 3rem;
+    margin-bottom: 40rem;
+  }
+  .row1{
+    padding: 0 3rem;
+    margin-bottom: 2rem;
+  }
+  .gender-sign p{
+    font-size: 1.6rem;
+  }
+  .container-namePage h2{
+    padding: 0 1rem;
+  }
+  
+  #interest-question{
+    margin: 0 ; 
+  }
+}

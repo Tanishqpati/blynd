@@ -16,7 +16,7 @@ const About = () => {
             BLYND is the dating website that's designed to help you make real
             connections in person. Our platform is safe, user-friendly, and
             accessible to everyone, including visually impaired users. <br />
-            <br />
+            <br/>
             We believe that sometimes the best connections happen when you take
             a chance and try something new. So why not try a blind date with
             BLYND?

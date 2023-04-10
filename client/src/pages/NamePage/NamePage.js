@@ -1,18 +1,15 @@
-import React, { useContext, useState } from "react";
+import React, {  useState } from "react";
 import "./NamePage.css";
 import { useNavigate } from "react-router-dom";
-import { MyContext } from '../../context/MyContextProvider';
 
 const NamePage = () => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const isFormValid = name;
-  const { handleUserInput } = useContext(MyContext);
   
 
   const handleNext = () => {
     localStorage.setItem('name', name);
-    handleUserInput({ name });
     navigate("/gender");
   };
 

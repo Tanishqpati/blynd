@@ -1,12 +1,10 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { MyContext } from "../../context/MyContextProvider";
 
 import "./MoreInfoPage.css";
 
 
 const MoreInfoPage = () => {
-  const { handleUserInput } = useContext(MyContext);
   const [day, setDay] = useState("");
   const [month, setMonth] = useState("");
   const [year, setyear] = useState("");
@@ -16,8 +14,12 @@ const MoreInfoPage = () => {
   const navigate = useNavigate();
 
   const handleNext = () => {
-    navigate("/more-info");
-    // handleUserInput({ day, month, year, height, aboutme });
+    localStorage.setItem('dob_day', day);
+    localStorage.setItem('dob_month', month);
+    localStorage.setItem('dob_year', year);
+    localStorage.setItem('height', height);
+    localStorage.setItem('about', aboutme);
+    navigate("/select-interest");
   };
   
   return (
@@ -89,9 +91,7 @@ const MoreInfoPage = () => {
           <button
             type="submit"
             disabled={!isFormValid}
-            onClick={()=>{
-              navigate("/select-interest")
-            }}
+            onClick={handleNext}
           >
             <div>
               <img src="/assets/right-arrow.png" alt="" />

@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LogoutModal from "../LogoutModal/LogoutModal";
 import "./SettingsSideSection.css";
 
-const SettingsSideSection = () => {
+const SettingsSideSection = ({user}) => {
   const navigate = useNavigate();
   const [activeButton, setActiveButton] = useState(
     window.location.pathname.slice(9, window.location.pathname.length)
@@ -59,7 +59,7 @@ const SettingsSideSection = () => {
             navigate("/dashboard/matches");
           }}
         >
-          <img src="/assets/tanishqpic.jpg" alt="" />
+          <img src={user && user.url1} alt="" />
         </span>
       </div>
 
