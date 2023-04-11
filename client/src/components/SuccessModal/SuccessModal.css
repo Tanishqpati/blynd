@@ -1,0 +1,50 @@
+
+.modal-cont {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: fixed;
+  background-color: white;
+  border-radius: 2rem;
+  gap: 3rem;
+  max-width: 30rem;
+  padding: 3rem 5rem;
+}
+.modal-cont img {
+  height: 10rem;
+}
+.modal-cont h3 {
+  font-weight: 700;
+  font-size: 1.6rem;
+  line-height: 157.5%;
+  text-align: center;
+  color: #6f9489;
+}
+.modal-cont button {
+  border-style: none;
+  background: #FF7676;
+  border-radius: 3rem;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.3rem;
+  padding: 1rem 3rem;
+  line-height: 125%;
+  text-align: center;
+  color: #ffffff;
+}
+
+.modal-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(189, 189, 189, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: hidden;
+}
+
+/*  */
