@@ -25,7 +25,7 @@ app.use(passport.session());
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000","https://error-fix-branch--blynd.netlify.app"],
     methods: "GET,POST,PUT,DELETE",
     credentials: true,
   })
