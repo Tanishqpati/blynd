@@ -59,6 +59,7 @@
     width: 6.5rem;
     height: 6.5rem;
     border-radius: 50%;
+    object-fit: cover;
 }
 
 #back-btn {

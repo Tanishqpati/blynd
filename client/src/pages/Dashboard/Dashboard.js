@@ -7,43 +7,22 @@ import { useState } from "react";
 import { useCookies } from "react-cookie";
 import "./Dashboard.css";
 import Matches from "../../components/Matches/Matches";
+import {useNavigate} from "react-router-dom";
+import {navigateToLoginPage} from "../../utils/routing";
 
-const db = [
-  {
-    name: "Ojasvi",
-    age: 21,
-    url: "https://www.scrolldroll.com/wp-content/uploads/2022/12/Hania-Amir-beautiful-pakistani-actresses.jpg",
-  },
-  {
-    name: "Ira",
-    age: 22,
-    url: "https://imgeng.jagran.com/webstories/7791/pakistani-actress-hania-amir-is-breathtaking-in-these-western-looks-1671693359.jpeg",
-  },
-  {
-    name: "Aanya",
-    age: 23,
-    url: "https://cdn.siasat.com/wp-content/uploads/2023/02/hania-amir.jpg",
-  },
-  {
-    name: "Lasya",
-    age: 24,
-    url: "https://lollywoodcity.com/wp-content/uploads/2022/03/haniaheheofficial_272875010_971176673531365_4582770850327121465_n-819x1024.jpg",
-  },
-  {
-    name: "Aakriti",
-    age: 25,
-    url: "https://m.timesofindia.com/photo/96518055/96518055.jpg",
-  },
-];
 
 const Dashboard = () => {
   //getting users from database
   const [user, setUser] = useState(null);
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
   const UserId = cookies.UserId;
+  const navigate = useNavigate()
+  useEffect(() => {
+    navigateToLoginPage(navigate, cookies)
+  }, []);
   const getUser = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/user", {
+      const response = await axios.get(process.env.REACT_APP_API_URL + "/user", {
         params: { UserId },
       });
       setUser(response.data);
@@ -56,7 +35,7 @@ const Dashboard = () => {
 
   const getGenderedUsers = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/gendered-users", {
+      const response = await axios.get(process.env.REACT_APP_API_URL + "/gendered-users", {
         params: { gender: user?.gender_interest },
       });
       setGenderedUsers(response.data);
@@ -105,7 +84,7 @@ const Dashboard = () => {
     setCurrentIndex(val);
     currentIndexRef.current = val;
   };
-  const canGoBack = currentIndex < [filteredGenderedUsers]?.length - 1;
+  const canGoBack = currentIndex <= [filteredGenderedUsers]?.length - 1;
 
   const canSwipe = currentIndex >= 0;
   const swiped = (direction, swipedUserId) => {
@@ -117,7 +96,7 @@ const Dashboard = () => {
 
   const updateMatches = async (matchedUserId) => {
     try {
-      await axios.put("http://localhost:4000/addmatch", {
+      await axios.put(process.env.REACT_APP_API_URL + "/addmatch", {
         UserId,
         matchedUserId,
       });
@@ -168,7 +147,7 @@ const Dashboard = () => {
           }`}
         >
           {filteredGenderedUsers?.map((character, index) => {
-            return ( character.url1 &&
+            return (
               <TinderCard
                 ref={childRefs[index]}
                 className="swipe"

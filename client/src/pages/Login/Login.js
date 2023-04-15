@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useLogin } from "../../hooks/useLogin";
 import jwt_decode from "jwt-decode"
 import { useEffect } from "react";
+import {useCookies} from "react-cookie";
+import {navigateToDashboard} from "../../utils/routing";
 
 
 const Login = () => {
@@ -12,6 +14,10 @@ const Login = () => {
 
   const [password, setPassword] = useState("");
   const { login, error, isLoading } = useLogin();
+  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+  useEffect(() => {
+    navigateToDashboard(navigate, cookies)
+  }, []);
 
   const handelClick = async (e) => {
     e.preventDefault();

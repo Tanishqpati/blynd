@@ -1,12 +1,18 @@
-import React, {  useState } from "react";
+import React, {useEffect, useState} from "react";
 import "./GenderPage.css";
 import { useNavigate } from "react-router-dom";
+import { navigateToHomePage} from "../../utils/routing";
+import {useCookies} from "react-cookie";
 
 
 const GenderPage = () => {
   const navigate = useNavigate();
   const [gender, setGender] = useState("");
   const isFormValid = gender;
+  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+  useEffect(() => {
+    navigateToHomePage(navigate, cookies)
+  }, []);
 
   const handleNext = () => {
     localStorage.setItem('gender_identity', gender);

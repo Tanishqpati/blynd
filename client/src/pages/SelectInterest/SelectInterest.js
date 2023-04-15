@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import {
   FcMusic,
   FcSportsMode,
@@ -14,11 +14,18 @@ import { SiYourtraveldottv } from "react-icons/si";
 import { BsMusicNoteList } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import "./SelectInterest.css";
+import {navigateToHomePage} from "../../utils/routing";
+import {useCookies} from "react-cookie";
 
 const SelectInterest = () => {
   const navigate = useNavigate();
 
   const [selectedInterests, setSelectedInterests] = useState([]);
+    const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+    useEffect(() => {
+        navigateToHomePage(navigate, cookies)
+    }, []);
+
   const handleNext = () => {
     localStorage.setItem('personal_interests', selectedInterests);
 

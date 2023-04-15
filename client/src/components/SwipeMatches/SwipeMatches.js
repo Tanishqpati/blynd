@@ -11,7 +11,7 @@ const SwipeMatches = ({ matches }) => {
   const UserId = cookies.UserId;
   const getMatches = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/users", {
+      const response = await axios.get(process.env.REACT_APP_API_URL + "/users", {
         params: { userIds: JSON.stringify(matchedUserIds) },
       });
       setMatchedProfiles(response.data);
@@ -19,7 +19,7 @@ const SwipeMatches = ({ matches }) => {
       console.log(error);
     }
   };
-
+console.log(matchedProfiles)
   useEffect(() => {
     getMatches();
   }, [matches]);
@@ -34,7 +34,7 @@ const SwipeMatches = ({ matches }) => {
 
   return (
     <div className="date-match-fixing">
-      {!matchedProfiles && (
+      {matchedProfiles?.length===0 && (
         <div className="noMatchesDesign">
           <img src="/assets/nomatch-illus.svg" alt="" />
           <h3>Find your matches here</h3>

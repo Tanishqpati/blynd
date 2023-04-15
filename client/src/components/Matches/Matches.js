@@ -7,18 +7,11 @@ import "./MatchesStyle.css";
 const Matches = ({ user }) => {
   const navigate = useNavigate();
   const [activeButton, setActiveButton] = useState("matches");
-  const person = JSON.parse(localStorage.getItem("user"));
-  const name = person.name;
-  const fullName = name.split(" ");
-  const firstName = fullName[0];
 
   const handleClick = (buttonNumber) => {
     setActiveButton(buttonNumber);
     console.log(user.matches);
   };
-  // useEffect(() => {
-  //   console.log(user.name)
-  // }, [])
 
   return (
     <div className="dashboard-side-section">
@@ -51,7 +44,7 @@ const Matches = ({ user }) => {
       </div>
 
       {activeButton === "dates" && <Dates />}
-      {activeButton === "matches" && <SwipeMatches matches={user.matches}/>}
+      {activeButton === "matches" && <SwipeMatches matches={user.matches} />}
     </div>
   );
 };

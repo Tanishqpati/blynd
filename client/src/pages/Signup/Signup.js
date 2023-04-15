@@ -5,6 +5,8 @@ import { useSignup } from "../../hooks/useSignup";
 import "./Signup.css";
 import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
+import {useCookies} from "react-cookie";
+import {navigateToDashboard} from "../../utils/routing";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -14,7 +16,10 @@ const Signup = () => {
   const [user, setUser] = useState({});
   // const [confirmPassword, setConfirmPassword] = useState("");
   const { signup, error, isLoading } = useSignup();
-
+  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+  useEffect(() => {
+    navigateToDashboard(navigate, cookies)
+  }, []);
   const handelClick = async (e) => {
     e.preventDefault();
     const finalName = name.split(" ");
@@ -43,7 +48,6 @@ const Signup = () => {
     });
 
     google.accounts.id.prompt();
-    localStorage.clear();
   }, []);
   // const passwordError =
   //   password === confirmPassword ? "" : "Password must match";
@@ -72,7 +76,7 @@ const Signup = () => {
 
           <div id="signInDiv"></div>
           {/* <button className="cwg">
-            
+
           </button> */}
           <p id="or">- OR -</p>
 

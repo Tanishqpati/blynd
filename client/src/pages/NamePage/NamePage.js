@@ -1,13 +1,17 @@
-import React, {  useState } from "react";
+import React, {useEffect, useState} from "react";
 import "./NamePage.css";
 import { useNavigate } from "react-router-dom";
+import {useCookies} from "react-cookie";
+import {navigateToHomePage} from "../../utils/routing";
 
 const NamePage = () => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const isFormValid = name;
-  
-
+  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+  useEffect(() => {
+    navigateToHomePage(navigate, cookies)
+  }, []);
   const handleNext = () => {
     localStorage.setItem('name', name);
     navigate("/gender");

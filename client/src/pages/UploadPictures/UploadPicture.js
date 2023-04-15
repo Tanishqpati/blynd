@@ -5,10 +5,11 @@ import axios from "axios";
 
 import "./UploadPicture.css";
 import SuccessModal from "../../components/SuccessModal/SuccessModal";
+import {navigateToHomePage} from "../../utils/routing";
 
 const UploadPicture = () => {
   const navigate = useNavigate();
-  const [cookies, setCookie, removeCookie] = useCookies(null);
+  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
 
   const [pictures, setPictures] = useState([]);
   const [pictures2, setPictures2] = useState([]);
@@ -16,12 +17,6 @@ const UploadPicture = () => {
   const [pictures4, setPictures4] = useState([]);
   const [pictures5, setPictures5] = useState([]);
   const [pictures6, setPictures6] = useState([]);
-  const [image, setImage] = useState([]);
-  const [image2, setImage2] = useState([]);
-  const [image3, setImage3] = useState([]);
-  const [image4, setImage4] = useState([]);
-  const [image5, setImage5] = useState([]);
-  const [image6, setImage6] = useState([]);
 
   const fileInputRef = useRef();
   const fileInputRef2 = useRef();
@@ -30,7 +25,11 @@ const UploadPicture = () => {
   const fileInputRef5 = useRef();
   const fileInputRef6 = useRef();
 
-  const submitImage = async (pictures, setPictures, setImage, imageIndex) => {
+  useEffect(() => {
+    navigateToHomePage(navigate, cookies)
+  }, []);
+
+  const submitImage = async (pictures, setPictures, imageIndex) => {
     const data = new FormData();
     data.append("file", pictures);
     data.append("upload_preset", "user_images");
@@ -43,7 +42,6 @@ const UploadPicture = () => {
       .then((res) => res.json())
       .then((data) => {
         // console.log(data.url);
-        setImage([data.url]);
         localStorage.setItem(`url${imageIndex}`, data.url);
         setPictures([data.url]);
       })
@@ -105,56 +103,51 @@ const UploadPicture = () => {
   const handelSubmit = async (e) => {
     e.preventDefault();
 
-    await submitImage(pictures, setPictures, setImage, 1);
-    await submitImage(pictures2, setPictures2, setImage2, 2);
-    await submitImage(pictures3, setPictures3, setImage3, 3);
-    await submitImage(pictures4, setPictures4, setImage4, 4);
-    await submitImage(pictures5, setPictures5, setImage5, 5);
-    await submitImage(pictures6, setPictures6, setImage6, 6);
-    console.log(image);
-    console.log(image2);
-    console.log(image3);
-    console.log(image4);
-    console.log(image5);
-    console.log(image6);
-    
+    await submitImage(pictures, setPictures, 1);
+    await submitImage(pictures2, setPictures2, 2);
+    await submitImage(pictures3, setPictures3, 3);
+    await submitImage(pictures4, setPictures4, 4);
+    await submitImage(pictures5, setPictures5, 5);
+    await submitImage(pictures6, setPictures6, 6);
+
       try {
-        const response = await axios.put("http://localhost:4000/user", {
-          "UserId": "cc19054b-d796-49d1-a77e-6d3d27265e82",
-          "first_name": localStorage.getItem("name"),
-          "dob_day": localStorage.getItem("dob_day"),
-          "dob_month": localStorage.getItem("dob_month"),
-          "dob_year": localStorage.getItem("dob_year"),
-          "gender_identity": localStorage.getItem("gender_identity"),
-          "gender_interest": localStorage.getItem("gender_interest"),
-          "url1": localStorage.getItem("url1"),
-          "url2": localStorage.getItem("url2"),
-          "url3": localStorage.getItem("url3"),
-          "url4": localStorage.getItem("url4"),
-          "url5": localStorage.getItem("url5"),
-          "url6": localStorage.getItem("url6"),
-          "about": localStorage.getItem("about"),
-          "matches": [],
-          "height": localStorage.getItem("height"),
-          "interests": localStorage.getItem("personal_interests"),
-        });
-        const success = response.statusCode === 200;
-        if (success) {
-        }
-        console.log(response.data, success)
-        setShowModal(true);
+        console.log(JSON.parse(localStorage.getItem("user")).UserId)
+
+          await axios.put(process.env.REACT_APP_API_URL + "/user", {
+            UserId: JSON.parse(localStorage.getItem("user")).UserId,
+            first_name: localStorage.getItem("name"),
+            dob_day: localStorage.getItem("dob_day"),
+            dob_month: localStorage.getItem("dob_month"),
+            dob_year: localStorage.getItem("dob_year"),
+            gender_identity: localStorage.getItem("gender_identity"),
+            gender_interest: localStorage.getItem("gender_interest"),
+            url1: localStorage.getItem("url1"),
+            url2: localStorage.getItem("url2"),
+            url3: localStorage.getItem("url3"),
+            url4: localStorage.getItem("url4"),
+            url5: localStorage.getItem("url5"),
+            url6: localStorage.getItem("url6"),
+            about: localStorage.getItem("about"),
+            matches: [],
+            height: localStorage.getItem("height"),
+            interests: localStorage.getItem("personal_interests"),
+          })
+          setShowModal(true);
+          const user = JSON.parse(localStorage.getItem('user'))
+          setCookie("UserId", user.UserId);
+          setCookie("AuthToken", user.token);
       } catch (err) {
         console.log(err);
       }
-    
+
   };
 
-  const isFormValid = pictures && pictures.length > 0 ? true : false;
-  const isFormValid2 = pictures2 && pictures2.length > 0 ? true : false;
-  const isFormValid3 = pictures3 && pictures3.length > 0 ? true : false;
-  const isFormValid4 = pictures4 && pictures4.length > 0 ? true : false;
-  const isFormValid5 = pictures5 && pictures5.length > 0 ? true : false;
-  const isFormValid6 = pictures6 && pictures6.length > 0 ? true : false;
+  const isFormValid = pictures && pictures.length > 0;
+  const isFormValid2 = pictures2 && pictures2.length > 0;
+  const isFormValid3 = pictures3 && pictures3.length > 0;
+  const isFormValid4 = pictures4 && pictures4.length > 0;
+  const isFormValid5 = pictures5 && pictures5.length > 0;
+  const isFormValid6 = pictures6 && pictures6.length > 0;
 
   let countPictures = 0;
 
@@ -194,8 +187,8 @@ const UploadPicture = () => {
     dob_year: localStorage.getItem("dob_year"),
     gender_identity: localStorage.getItem("gender_identity"),
     gender_interest: localStorage.getItem("gender_interest"),
-    url1: pictures,
-    url2: pictures2,
+    url1: localStorage.getItem("url1"),
+    url2: localStorage.getItem("url2"),
     url3: localStorage.getItem("url3"),
     url4: localStorage.getItem("url4"),
     url5: localStorage.getItem("url5"),
@@ -204,13 +197,6 @@ const UploadPicture = () => {
     matches: [],
     height: localStorage.getItem("height"),
     interests: localStorage.getItem("personal_interests"),
-  });
-  useEffect(() => {
-    console.log(FormData);
-  }, []);
-
-  useEffect(() => {
-    console.log(localStorage.getItem("url1"));
   });
 
   return (
@@ -230,7 +216,7 @@ const UploadPicture = () => {
               <div className="picture-preview-enabled">
                 {pictures?.length > 0 &&
                   pictures?.map((picture, index) => (
-                    <img key={index} src={picture} alt={` ${index}`} />
+                    picture &&   <img key={index} src={picture} alt={` ${index}`} />
                   ))}
               </div>
               <div
@@ -262,7 +248,8 @@ const UploadPicture = () => {
                 <div className="picture-preview-small">
                   {pictures2?.length > 0 &&
                     pictures2?.map((picture, index) => (
-                      <img key={index} src={picture} alt={`${index}`} />
+                    
+                      picture && <img key={index} src={picture} alt={`${index}`} />
                     ))}
                 </div>
 
@@ -296,7 +283,7 @@ const UploadPicture = () => {
                 <div className="picture-preview-small">
                   {pictures3?.length > 0 &&
                     pictures3?.map((picture, index) => (
-                      <img key={index} src={picture} alt={`${index}`} />
+                      picture && <img key={index} src={picture} alt={`${index}`} />
                     ))}
                 </div>
 
@@ -334,7 +321,7 @@ const UploadPicture = () => {
               <div className="picture-preview-small">
                 {pictures4?.length > 0 &&
                   pictures4?.map((picture, index) => (
-                    <img key={index} src={picture} alt={`${index}`} />
+                    picture && <img key={index} src={picture} alt={`${index}`} />
                   ))}
               </div>
 
@@ -368,7 +355,7 @@ const UploadPicture = () => {
               <div className="picture-preview-small">
                 {pictures5?.length > 0 &&
                   pictures5?.map((picture, index) => (
-                    <img key={index} src={picture} alt={`${index}`} />
+                    picture &&  <img key={index} src={picture} alt={`${index}`} />
                   ))}
               </div>
 
@@ -402,7 +389,7 @@ const UploadPicture = () => {
               <div className="picture-preview-small">
                 {pictures6?.length > 0 &&
                   pictures6?.map((picture, index) => (
-                    <img key={index} src={picture} alt={`${index}`} />
+                    picture && <img key={index} src={picture} alt={`${index}`} />
                   ))}
               </div>
 

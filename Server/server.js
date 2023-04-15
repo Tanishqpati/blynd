@@ -25,7 +25,7 @@ app.use(passport.session());
 
 app.use(
   cors({
-    origin: ["http://localhost:3000","https://error-fix-branch--blynd.netlify.app"],
+    origin: "http://localhost:3000",
     methods: "GET,POST,PUT,DELETE",
     credentials: true,
   })
@@ -56,6 +56,7 @@ app.get('/gendered-users', async (req, res) => {
       const users = database.collection('users')
       const query = {gender_identity: {$eq: gender}}
       const foundUsers = await users.find(query).toArray()
+
       res.json(foundUsers)
 
   } finally {
@@ -87,7 +88,7 @@ app.put('/addmatch', async (req, res) => {
 // updating further details of user
 app.put("/user", async (req, res) => {
   const client = new MongoClient(process.env.MONGO_URI);
-  const formData = req.body.formData;
+  const formData = req.body;
 
   try {
     await client.connect();

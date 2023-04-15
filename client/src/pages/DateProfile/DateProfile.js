@@ -4,14 +4,21 @@ import SettingsSideSection from "../../components/SettingsSideSection/SettingsSi
 import "./DateProfile.css";
 import { useCookies } from "react-cookie";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
+import {navigateToLoginPage} from "../../utils/routing";
 
 const DateProfile = () => {
   const [user, setUser] = useState(null);
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
   const UserId = cookies.UserId;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    navigateToLoginPage(navigate, cookies)
+  }, []);
   const getUser = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/user", {
+      const response = await axios.get(process.env.REACT_APP_API_URL + "/user", {
         params: { UserId },
       });
       setUser(response.data);
@@ -20,7 +27,7 @@ const DateProfile = () => {
     }
   };
   useEffect(() => {
-  
+
     getUser();
   }, []);
 
@@ -39,19 +46,19 @@ const DateProfile = () => {
           <div className="col1">
             <div className="big-box">
               <div className="picture-preview-enabled">
-              { user && user.url1 &&  <img src={user && user.url1} alt="" />}
+              { user && user.url1!=="undefined" &&  <img src={user && user.url1} alt="" />}
               </div>
             </div>
             <div className="small-box-cont">
               <div className="small-box">
                 {/* <div className="inner-img-box"></div> */}
                 <div className="picture-preview-small">
-                { user && user.url2 &&  <img src={user && user.url2} alt="" />}
+                { user && user.url2!=="undefined" &&  <img src={user && user.url2} alt="" />}
                 </div>
               </div>
               <div className="small-box">
                 <div className="picture-preview-small">
-                { user && user.url3 &&  <img src={user && user.url3} alt="" />}
+                { user && user.url3!=="undefined" &&  <img src={user && user.url3} alt="" />}
                 </div>
               </div>
             </div>
@@ -60,17 +67,17 @@ const DateProfile = () => {
           <div className="col2">
             <div className="small-box">
               <div className="picture-preview-small">
-              { user && user.url4 &&  <img src={user && user.url4} alt="" />}
+              { user && user.url4!=="undefined" &&  <img src={user && user.url4} alt="" />}
               </div>
             </div>
             <div className="small-box">
               <div className="picture-preview-small">
-              { user && user.url5 &&  <img src={user && user.url5} alt="" />}
+              { user && user.url5!=="undefined" &&  <img src={user && user.url5} alt="" />}
               </div>
             </div>
             <div className="small-box">
               <div className="picture-preview-small">
-              { user && user.url6 &&  <img src={user && user.url6} alt="" />}
+              { user && user.url6!=="undefined" &&  <img src={user && user.url6} alt="" />}
               </div>
             </div>
           </div>
