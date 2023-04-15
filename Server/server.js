@@ -28,6 +28,7 @@ app.use(
     origin: [
       "http://localhost:3000",
       "https://error-fix-branch--blynd.netlify.app",
+      "https://blynd.netlify.app/",
     ],
     methods: "GET,POST,PUT,DELETE",
     credentials: true,
