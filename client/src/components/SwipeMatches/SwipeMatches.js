@@ -34,14 +34,14 @@ console.log(matchedProfiles)
 
   return (
     <div className="date-match-fixing">
-      {matchedProfiles?.length===0 && (
+      {filteredMatchedProfiles?.length===0 && (
         <div className="noMatchesDesign">
           <img src="/assets/nomatch-illus.svg" alt="" />
           <h3>Find your matches here</h3>
           <p>Start discovering people to get matches</p>
         </div>
       )}
-      {matchedProfiles?.map((match, _index) => (
+      {filteredMatchedProfiles?.map((match, _index) => (
         <div
           key={_index}
           className="match-card"
