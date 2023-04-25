@@ -2,8 +2,8 @@ const User = require("../models/userModal");
 const jwt = require("jsonwebtoken");
 const {v4: uuidv4} = require("uuid")
 
-const createToken = (_id) => {
-  return jwt.sign({ _id }, process.env.SECRET, { expiresIn: "3d" });
+const createToken = (UserId) => {
+  return jwt.sign({ UserId }, process.env.SECRET, { expiresIn: "3d" });
 };
 
 // user login function
@@ -14,9 +14,11 @@ const loginUser = async (req, res) => {
     const user = await User.login( email, password );
 
     // creating a user token
-    const token = jwt.sign(user.toJSON(), email, {
-      expiresIn: 60*24,
-    })
+    const token = createToken(user.UserId)
+
+    // const token = jwt.sign(user.toJSON(), email, {
+    //   expiresIn: 60*24,
+    // })
 
     res.status(200).json({ UserId: user.UserId, name: user.name, email, token });
   } catch (error) {
@@ -36,9 +38,10 @@ const signupUser = async (req, res) => {
 
     // createating a token for user
     // const token = createToken(user._id);
-    const token = jwt.sign(user.toJSON(), email, {
-      expiresIn: 60*24,
-    })
+    // const token = jwt.sign(user.toJSON(), email, {
+    //   expiresIn: 60*24,
+    // })
+    const token = createToken(user.UserId)
 
 
 

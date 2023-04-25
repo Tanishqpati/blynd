@@ -6,20 +6,25 @@ import { useCookies } from "react-cookie";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import {navigateToLoginPage} from "../../utils/routing";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 const DateProfile = () => {
   const [user, setUser] = useState(null);
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
-  const UserId = cookies.UserId;
+  const userId = cookies.UserId
   const navigate = useNavigate();
+  const{person} = useAuthContext()
 
   useEffect(() => {
     navigateToLoginPage(navigate, cookies)
   }, []);
   const getUser = async () => {
     try {
-      const response = await axios.get(process.env.REACT_APP_API_URL + "/user", {
-        params: { UserId },
+      const response = await axios.get(process.env.REACT_APP_API_URL + "/profile/user", {
+        params: { userId },
+        headers:{
+          'Authorization': `Bearer ${person.token}`
+        }
       });
       setUser(response.data);
     } catch (error) {

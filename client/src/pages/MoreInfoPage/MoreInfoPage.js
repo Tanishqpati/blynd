@@ -20,11 +20,12 @@ const MoreInfoPage = () => {
   }, []);
 
   const handleNext = () => {
-    localStorage.setItem('dob_day', day);
-    localStorage.setItem('dob_month', month);
-    localStorage.setItem('dob_year', year);
-    localStorage.setItem('height', height);
-    localStorage.setItem('about', aboutme);
+    sessionStorage.setItem("dob_day", day);
+    sessionStorage.setItem("dob_month", month);
+    sessionStorage.setItem("dob_year", year);
+    sessionStorage.setItem("height", height);
+    sessionStorage.setItem("about", aboutme);
+
     navigate("/select-interest");
   };
 

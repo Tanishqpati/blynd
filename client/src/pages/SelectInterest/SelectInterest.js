@@ -27,8 +27,7 @@ const SelectInterest = () => {
     }, []);
 
   const handleNext = () => {
-    localStorage.setItem('personal_interests', selectedInterests);
-
+    sessionStorage.setItem("personal_interests", selectedInterests);
     navigate("/upload-pictures");
   };
 

@@ -5,8 +5,8 @@ import { useSignup } from "../../hooks/useSignup";
 import "./Signup.css";
 import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
-import {useCookies} from "react-cookie";
-import {navigateToDashboard} from "../../utils/routing";
+import { useCookies } from "react-cookie";
+import { navigateToDashboard } from "../../utils/routing";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ const Signup = () => {
   const { signup, error, isLoading } = useSignup();
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
   useEffect(() => {
-    navigateToDashboard(navigate, cookies)
+    navigateToDashboard(navigate, cookies);
   }, []);
   const handelClick = async (e) => {
     e.preventDefault();
@@ -30,15 +30,15 @@ const Signup = () => {
     // console.log("Encoded JWT  ID token: " + response.credential);
     var userObject = jwt_decode(response.credential);
     setUser(userObject);
-    localStorage.setItem("user", JSON.stringify(userObject));
+    sessionStorage.setItem("user", JSON.stringify(userObject));
     navigate("/name");
   }
 
   useEffect(() => {
+    sessionStorage.clear()
     /* global google */
     google.accounts.id.initialize({
-      client_id:
-        "786188419159-ldtllegicson9td6oso3nb54nuk8lakb.apps.googleusercontent.com",
+      client_id: process.env.REACT_APP_CLIENT_ID,
       callback: handleCallbackResponse,
     });
 

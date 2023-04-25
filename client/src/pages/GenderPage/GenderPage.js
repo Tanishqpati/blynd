@@ -15,7 +15,8 @@ const GenderPage = () => {
   }, []);
 
   const handleNext = () => {
-    localStorage.setItem('gender_identity', gender);
+    sessionStorage.setItem('gender_identity', gender);
+
     navigate("/interest");
   };
 

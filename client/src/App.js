@@ -13,8 +13,11 @@ import SelectInterest from "./pages/SelectInterest/SelectInterest";
 import Settings from "./pages/Settings/Settings";
 import DateProfile from "./pages/DateProfile/DateProfile";
 import ContactFaqs from "./pages/ContactFaqs/ContactFaqs";
+import NotAuthenticated from "./pages/NotAuthenticated/NotAuthenticated";
+import ErrorPage from "./pages/ErrorPage/ErrorPage";
 
 function App() {
+ 
   return (
     <BrowserRouter>
       <Routes>
@@ -31,6 +34,8 @@ function App() {
         <Route path="/profile/editprofile" element={<DateProfile />}/>
         <Route path="/profile/settings" element={<Settings />}/>
         <Route path="/profile/contactfaqs" element={<ContactFaqs />}/>
+        <Route path="/not-authenticated" element={<NotAuthenticated/>} />
+        <Route path="*" element={<ErrorPage/>} />
       </Routes>
     </BrowserRouter>
   );

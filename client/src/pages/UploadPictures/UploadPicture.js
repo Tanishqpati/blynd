@@ -5,11 +5,13 @@ import axios from "axios";
 
 import "./UploadPicture.css";
 import SuccessModal from "../../components/SuccessModal/SuccessModal";
-import {navigateToHomePage} from "../../utils/routing";
+import { navigateToHomePage } from "../../utils/routing";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 const UploadPicture = () => {
   const navigate = useNavigate();
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+  const {user} = useAuthContext();
 
   const [pictures, setPictures] = useState([]);
   const [pictures2, setPictures2] = useState([]);
@@ -25,8 +27,11 @@ const UploadPicture = () => {
   const fileInputRef5 = useRef();
   const fileInputRef6 = useRef();
 
+  // const [pictures6, setPictures6] = useState([]);
+
+
   useEffect(() => {
-    navigateToHomePage(navigate, cookies)
+    navigateToHomePage(navigate, cookies);
   }, []);
 
   const submitImage = async (pictures, setPictures, imageIndex) => {
@@ -38,11 +43,12 @@ const UploadPicture = () => {
     await fetch("https://api.cloudinary.com/v1_1/dtwaas6rv/image/upload", {
       method: "POST",
       body: data,
+      
     })
       .then((res) => res.json())
       .then((data) => {
         // console.log(data.url);
-        localStorage.setItem(`url${imageIndex}`, data.url);
+        sessionStorage.setItem(`url${imageIndex}`, data.url);
         setPictures([data.url]);
       })
       .catch((err) => {
@@ -102,6 +108,9 @@ const UploadPicture = () => {
 
   const handelSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+
+    setShowModal(true);
 
     await submitImage(pictures, setPictures, 1);
     await submitImage(pictures2, setPictures2, 2);
@@ -110,36 +119,39 @@ const UploadPicture = () => {
     await submitImage(pictures5, setPictures5, 5);
     await submitImage(pictures6, setPictures6, 6);
 
-      try {
-        console.log(JSON.parse(localStorage.getItem("user")).UserId)
+    try {
+      // console.log(JSON.parse(sessionStorage.getItem("user")).UserId);
+      // const user = useAuthContext();
 
-          await axios.put(process.env.REACT_APP_API_URL + "/user", {
-            UserId: JSON.parse(localStorage.getItem("user")).UserId,
-            first_name: localStorage.getItem("name"),
-            dob_day: localStorage.getItem("dob_day"),
-            dob_month: localStorage.getItem("dob_month"),
-            dob_year: localStorage.getItem("dob_year"),
-            gender_identity: localStorage.getItem("gender_identity"),
-            gender_interest: localStorage.getItem("gender_interest"),
-            url1: localStorage.getItem("url1"),
-            url2: localStorage.getItem("url2"),
-            url3: localStorage.getItem("url3"),
-            url4: localStorage.getItem("url4"),
-            url5: localStorage.getItem("url5"),
-            url6: localStorage.getItem("url6"),
-            about: localStorage.getItem("about"),
-            matches: [],
-            height: localStorage.getItem("height"),
-            interests: localStorage.getItem("personal_interests"),
-          })
-          setShowModal(true);
-          const user = JSON.parse(localStorage.getItem('user'))
-          setCookie("UserId", user.UserId);
-          setCookie("AuthToken", user.token);
-      } catch (err) {
-        console.log(err);
-      }
 
+      await axios.put(process.env.REACT_APP_API_URL + "/user", {
+        UserId: JSON.parse(sessionStorage.getItem("user")).UserId,
+        first_name: sessionStorage.getItem("name"),
+        dob_day: sessionStorage.getItem("dob_day"),
+        dob_month: sessionStorage.getItem("dob_month"),
+        dob_year: sessionStorage.getItem("dob_year"),
+        gender_identity: sessionStorage.getItem("gender_identity"),
+        gender_interest: sessionStorage.getItem("gender_interest"),
+        url1: sessionStorage.getItem("url1"),
+        url2: sessionStorage.getItem("url2"),
+        url3: sessionStorage.getItem("url3"),
+        url4: sessionStorage.getItem("url4"),
+        url5: sessionStorage.getItem("url5"),
+        url6: sessionStorage.getItem("url6"),
+        about: sessionStorage.getItem("about"),
+        matches: [],
+        height: sessionStorage.getItem("height"),
+        interests: sessionStorage.getItem("personal_interests"),
+      
+      },
+      );
+      const user = JSON.parse(sessionStorage.getItem("user"));
+      setCookie("UserId", user.UserId);
+      setCookie("AuthToken", user.token);
+    } catch (err) {
+      console.log(err);
+    }
+    setLoading(false)
   };
 
   const isFormValid = pictures && pictures.length > 0;
@@ -177,32 +189,33 @@ const UploadPicture = () => {
   const isButtonValid = countPictures >= 0;
 
   const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   // submit and getting form data
-  const [formData, setFormData] = useState({
-    UserId: cookies.UserId,
-    first_name: localStorage.getItem("name"),
-    dob_day: localStorage.getItem("dob_day"),
-    dob_month: localStorage.getItem("dob_month"),
-    dob_year: localStorage.getItem("dob_year"),
-    gender_identity: localStorage.getItem("gender_identity"),
-    gender_interest: localStorage.getItem("gender_interest"),
-    url1: localStorage.getItem("url1"),
-    url2: localStorage.getItem("url2"),
-    url3: localStorage.getItem("url3"),
-    url4: localStorage.getItem("url4"),
-    url5: localStorage.getItem("url5"),
-    url6: localStorage.getItem("url6"),
-    about: localStorage.getItem("about"),
-    matches: [],
-    height: localStorage.getItem("height"),
-    interests: localStorage.getItem("personal_interests"),
-  });
+  // const [formData, setFormData] = useState({
+  //   UserId: JSON.parse(sessionStorage.getItem("user")).UserId,
+  //   first_name: sessionStorage.getItem("name"),
+  //   dob_day: sessionStorage.getItem("dob_day"),
+  //   dob_month: sessionStorage.getItem("dob_month"),
+  //   dob_year: sessionStorage.getItem("dob_year"),
+  //   gender_identity: sessionStorage.getItem("gender_identity"),
+  //   gender_interest: sessionStorage.getItem("gender_interest"),
+  //   url1: sessionStorage.getItem("url1"),
+  //   url2: sessionStorage.getItem("url2"),
+  //   url3: sessionStorage.getItem("url3"),
+  //   url4: sessionStorage.getItem("url4"),
+  //   url5: sessionStorage.getItem("url5"),
+  //   url6: sessionStorage.getItem("url6"),
+  //   about: sessionStorage.getItem("about"),
+  //   matches: [],
+  //   height: sessionStorage.getItem("height"),
+  //   interests: sessionStorage.getItem("personal_interests"),
+  // });
 
   return (
     <>
       <div className="container-namePage">
-        {showModal && <SuccessModal />}
+        {showModal && <SuccessModal loading={loading}/>}
 
         <div className="row1" onClick={() => navigate("/select-interest ")}>
           <img src="/assets/Back.png" alt="" />
@@ -215,9 +228,12 @@ const UploadPicture = () => {
             <div className="big-box">
               <div className="picture-preview-enabled">
                 {pictures?.length > 0 &&
-                  pictures?.map((picture, index) => (
-                    picture &&   <img key={index} src={picture} alt={` ${index}`} />
-                  ))}
+                  pictures?.map(
+                    (picture, index) =>
+                      picture && (
+                        <img key={index} src={picture} alt={` ${index}`} />
+                      )
+                  )}
               </div>
               <div
                 className={
@@ -247,10 +263,12 @@ const UploadPicture = () => {
               <div className="small-box">
                 <div className="picture-preview-small">
                   {pictures2?.length > 0 &&
-                    pictures2?.map((picture, index) => (
-                    
-                      picture && <img key={index} src={picture} alt={`${index}`} />
-                    ))}
+                    pictures2?.map(
+                      (picture, index) =>
+                        picture && (
+                          <img key={index} src={picture} alt={`${index}`} />
+                        )
+                    )}
                 </div>
 
                 <div
@@ -282,9 +300,12 @@ const UploadPicture = () => {
               <div className="small-box">
                 <div className="picture-preview-small">
                   {pictures3?.length > 0 &&
-                    pictures3?.map((picture, index) => (
-                      picture && <img key={index} src={picture} alt={`${index}`} />
-                    ))}
+                    pictures3?.map(
+                      (picture, index) =>
+                        picture && (
+                          <img key={index} src={picture} alt={`${index}`} />
+                        )
+                    )}
                 </div>
 
                 <div
@@ -320,9 +341,12 @@ const UploadPicture = () => {
             <div className="small-box">
               <div className="picture-preview-small">
                 {pictures4?.length > 0 &&
-                  pictures4?.map((picture, index) => (
-                    picture && <img key={index} src={picture} alt={`${index}`} />
-                  ))}
+                  pictures4?.map(
+                    (picture, index) =>
+                      picture && (
+                        <img key={index} src={picture} alt={`${index}`} />
+                      )
+                  )}
               </div>
 
               <div
@@ -354,9 +378,12 @@ const UploadPicture = () => {
             <div className="small-box">
               <div className="picture-preview-small">
                 {pictures5?.length > 0 &&
-                  pictures5?.map((picture, index) => (
-                    picture &&  <img key={index} src={picture} alt={`${index}`} />
-                  ))}
+                  pictures5?.map(
+                    (picture, index) =>
+                      picture && (
+                        <img key={index} src={picture} alt={`${index}`} />
+                      )
+                  )}
               </div>
 
               <div
@@ -388,9 +415,12 @@ const UploadPicture = () => {
             <div className="small-box">
               <div className="picture-preview-small">
                 {pictures6?.length > 0 &&
-                  pictures6?.map((picture, index) => (
-                    picture && <img key={index} src={picture} alt={`${index}`} />
-                  ))}
+                  pictures6?.map(
+                    (picture, index) =>
+                      picture && (
+                        <img key={index} src={picture} alt={`${index}`} />
+                      )
+                  )}
               </div>
 
               <div

@@ -2,17 +2,22 @@ import React, { useEffect, useState } from "react";
 import "./SwipeMatches.css";
 import axios from "axios";
 import { useCookies } from "react-cookie";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 const SwipeMatches = ({ matches }) => {
   const [matchedProfiles, setMatchedProfiles] = useState();
   const [cookies, setCookie, removeCookie] = useCookies(null);
 
   const matchedUserIds = matches.map(({ UserId }) => UserId);
-  const UserId = cookies.UserId;
+  const {person} = useAuthContext()
+  const UserId = person.UserId;
   const getMatches = async () => {
     try {
-      const response = await axios.get(process.env.REACT_APP_API_URL + "/users", {
+      const response = await axios.get(process.env.REACT_APP_API_URL + "/profile/matches", {
         params: { userIds: JSON.stringify(matchedUserIds) },
+        headers:{
+          'Authorization': `Bearer ${person.token}`
+        }
       });
       setMatchedProfiles(response.data);
     } catch (error) {
@@ -26,7 +31,7 @@ console.log(matchedProfiles)
 
   const filteredMatchedProfiles = matchedProfiles?.filter(
     (matchedProfile) =>
-      matchedProfile.matches.filter((profile) => profile.user_id === UserId)
+      matchedProfile.matches.filter((profile) => profile.UserId === UserId)
         .length > 0
   );
 

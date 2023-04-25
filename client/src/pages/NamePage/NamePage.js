@@ -13,7 +13,7 @@ const NamePage = () => {
     navigateToHomePage(navigate, cookies)
   }, []);
   const handleNext = () => {
-    localStorage.setItem('name', name);
+    sessionStorage.setItem('name', name);
     navigate("/gender");
   };
 

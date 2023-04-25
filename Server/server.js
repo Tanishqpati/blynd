@@ -6,8 +6,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const UserRoutes = require("./routes/BlyndUser");
 const authRoutes = require("./routes/auth");
-const { MongoClient } = require("mongodb");
 const signupLoginUserRoutes = require("./routes/user.js");
+const { MongoClient } = require("mongodb");
 
 // express app
 const app = express();
@@ -23,6 +23,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(cors());
 // app.use(
 //   cors({
 //     origin: [
@@ -35,8 +36,6 @@ app.use(passport.session());
 //   })
 // );
 
-app.use(cors());
-
 // middleware
 app.use(express.json());
 
@@ -46,48 +45,48 @@ app.use((req, res, next) => {
 });
 
 // routes
-app.use("/api/profiles", UserRoutes);
+app.use("/profile", UserRoutes);
 app.use("/api/user", signupLoginUserRoutes);
 app.use("/auth", authRoutes);
 
 // Get all the Gendered Users in the Database
-app.get("/gendered-users", async (req, res) => {
-  const client = new MongoClient(process.env.MONGO_URI);
-  const gender = req.query.gender;
+// app.get("/gendered-users", async (req, res) => {
+//   const client = new MongoClient(process.env.MONGO_URI);
+//   const gender = req.query.gender;
 
-  try {
-    await client.connect();
-    const database = client.db("test");
-    const users = database.collection("users");
-    const query = { gender_identity: { $eq: gender } };
-    const foundUsers = await users.find(query).toArray();
+//   try {
+//     await client.connect();
+//     const database = client.db("test");
+//     const users = database.collection("users");
+//     const query = [{ $match: { gender_identity: gender } }];
+//     const foundUsers = await users.aggregate(query).toArray();
 
-    res.json(foundUsers);
-  } finally {
-    await client.close();
-  }
-});
+//     res.json(foundUsers);
+//   } finally {
+//     await client.close();
+//   }
+// });
 
 // Update User with a match
-app.put("/addmatch", async (req, res) => {
-  const client = new MongoClient(process.env.MONGO_URI);
-  const { UserId, matchedUserId } = req.body;
+// app.put("/addmatch", async (req, res) => {
+//   const client = new MongoClient(process.env.MONGO_URI);
+//   const { UserId, matchedUserId } = req.body;
 
-  try {
-    await client.connect();
-    const database = client.db("test");
-    const users = database.collection("users");
+//   try {
+//     await client.connect();
+//     const database = client.db("test");
+//     const users = database.collection("users");
 
-    const query = { UserId: UserId };
-    const updateDocument = {
-      $push: { matches: { UserId: matchedUserId } },
-    };
-    const user = await users.updateOne(query, updateDocument);
-    res.send(user);
-  } finally {
-    await client.close();
-  }
-});
+//     const query = { UserId: UserId };
+//     const updateDocument = {
+//       $push: { matches: { UserId: matchedUserId } },
+//     };
+//     const user = await users.updateOne(query, updateDocument);
+//     res.send(user);
+//   } finally {
+//     await client.close();
+//   }
+// });
 
 // updating further details of user
 app.put("/user", async (req, res) => {
@@ -131,52 +130,52 @@ app.put("/user", async (req, res) => {
 });
 
 //getting the user
-app.get("/user", async (req, res) => {
-  const client = new MongoClient(process.env.MONGO_URI);
-  const userId = req.query.UserId;
+// app.get("/user", async (req, res) => {
+//   const client = new MongoClient(process.env.MONGO_URI);
+//   const userId = req.query.UserId;
 
-  try {
-    await client.connect();
-    const database = client.db("test");
-    const users = database.collection("users");
+//   try {
+//     await client.connect();
+//     const database = client.db("test");
+//     const users = database.collection("users");
 
-    const query = { UserId: userId };
-    const user = await users.findOne(query);
-    res.send(user);
-  } finally {
-    await client.close();
-  }
-});
+//     const query = [{ $match: { UserId: userId } }];
+//     const user = await users.aggregate(query).toArray();
+//     res.send(user[0]);
+//   } finally {
+//     await client.close();
+//   }
+// });
 
 //getting the users
 
-app.get("/users", async (req, res) => {
-  const client = new MongoClient(process.env.MONGO_URI);
-  const userIds = JSON.parse(req.query.userIds);
-  console.log(userIds);
+// app.get("/users", async (req, res) => {
+//   const client = new MongoClient(process.env.MONGO_URI);
+//   const userIds = JSON.parse(req.query.userIds);
+//   console.log(userIds);
 
-  try {
-    await client.connect();
-    const database = client.db("test");
-    const users = database.collection("users");
+//   try {
+//     await client.connect();
+//     const database = client.db("test");
+//     const users = database.collection("users");
 
-    const pipeline = [
-      {
-        $match: {
-          UserId: {
-            $in: userIds,
-          },
-        },
-      },
-    ];
+//     const pipeline = [
+//       {
+//         $match: {
+//           UserId: {
+//             $in: userIds,
+//           },
+//         },
+//       },
+//     ];
 
-    const foundUsers = await users.aggregate(pipeline).toArray();
+//     const foundUsers = await users.aggregate(pipeline).toArray();
 
-    res.json(foundUsers);
-  } finally {
-    await client.close();
-  }
-});
+//     res.json(foundUsers);
+//   } finally {
+//     await client.close();
+//   }
+// });
 
 //connect to db
 mongoose.set("strictQuery", false);

@@ -1,7 +1,11 @@
 const express = require("express");
 const {
   createProfile,
-  getProfiles,
+  getGenderedUsers,
+  addMatch,
+  finalAccountCreation,
+  getUser,
+  getUsers,
   getProfile,
   updateProfile,
   deleteProfile
@@ -9,23 +13,37 @@ const {
 const requireAuth = require('../middleware/requireAuth')
 const router = express.Router();
 
+router.put("/user", finalAccountCreation);
+
 router.use(requireAuth)
 
-router.get("/", getProfiles);
+// router.get("/", getGenderedUsers);
+router.get("/gendered-users", getGenderedUsers);
 
-//get a single profile
+
+router.put("/addmatch", addMatch);
+
+
+router.get("/user", getUser);
+
+router.get("/matches", getUsers);
+
+/////////////////////////////////////////////
+
+
+// //get a single profile
 router.get("/:id", getProfile);
 
-//post a profile
-// router.post("/", createProfile);
+// //post a profile
+// // router.post("/", createProfile);
 
-// adding the data in the current data
-router.put("/", createProfile)
+// // adding the data in the current data
+// router.put("/", createProfile)
 
-//Delete a profile
-router.delete("/:id", deleteProfile);
+// //Delete a profile
+// router.delete("/:id", deleteProfile);
 
-//update a profile
-router.patch("/:id", updateProfile);
+// //update a profile
+// router.patch("/:id", updateProfile);
 
 module.exports = router;

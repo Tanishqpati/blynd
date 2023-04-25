@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Interest.css";
-import {navigateToHomePage} from "../../utils/routing";
-import {useCookies} from "react-cookie";
+import { navigateToHomePage } from "../../utils/routing";
+import { useCookies } from "react-cookie";
 
 const Interest = () => {
   const navigate = useNavigate();
@@ -10,12 +10,11 @@ const Interest = () => {
   const isFormValid = interest;
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
   useEffect(() => {
-    navigateToHomePage(navigate, cookies)
+    navigateToHomePage(navigate, cookies);
   }, []);
 
   const handleNext = () => {
-    localStorage.setItem('gender_interest', interest);
-
+    sessionStorage.setItem("gender_interest", interest);
     navigate("/more-info");
   };
 

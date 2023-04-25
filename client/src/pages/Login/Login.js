@@ -29,15 +29,17 @@ const Login = () => {
     // console.log("Encoded JWT  ID token: " + response.credential);
     var userObject = jwt_decode(response.credential);
     // setUser(userObject);
-    localStorage.setItem("user", JSON.stringify(userObject));
+    sessionStorage.setItem("user", JSON.stringify(userObject));
     navigate("/name");
   }
 
   useEffect(() => {
+    sessionStorage.clear()
+
     /* global google */
     google.accounts.id.initialize({
       client_id:
-        "786188419159-ldtllegicson9td6oso3nb54nuk8lakb.apps.googleusercontent.com",
+      process.env.REACT_APP_CLIENT_ID,
       callback: handleCallbackResponse,
     });
 
@@ -47,8 +49,6 @@ const Login = () => {
     });
 
     google.accounts.id.prompt();
-    // eslint-disable-next-line
-    // localStorage.clear()
   }, []);
 
   return (
