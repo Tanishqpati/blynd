@@ -16,7 +16,7 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="container">
         <div className="logo">
-          <img src="/assets/image2.svg" alt="" />
+          <img src="/assets/image2.jpg" alt="" />
         </div>
         <div className="menu-icon" onClick={handleShowNavbar}>
           <img src="/assets/icons8-menu.svg" alt="" />
@@ -36,8 +36,7 @@ const Navbar = () => {
               <NavLink to="/support">Support</NavLink>
             </li>
             <li>
-              <button id="signin" onClick={() => navigate('/login')}>
-                
+              <button id="signin" onClick={() => navigate("/login")}>
                 Sign in
               </button>
             </li>
