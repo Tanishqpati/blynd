@@ -1,0 +1,140 @@
+.container-namePage {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6.5rem 10rem;
+}
+
+.row1 {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 3rem;
+  gap: 5rem;
+}
+
+#name-back {
+  visibility: hidden;
+}
+
+.row1 img {
+  width: 5.4rem;
+  height: 5.4rem;
+}
+
+.container-namePage h2 {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 3.2rem;
+  line-height: 125%;
+  text-align: center;
+
+  color: #6f9489;
+}
+
+.input {
+  width: 39.3rem;
+  height: 5.9rem;
+  padding: 1rem 1rem;
+  background: #ffffff;
+  border: 2px solid #f8e8e6;
+  border-radius: 1.5rem;
+  font-size: 1.6rem;
+}
+
+input:focus {
+  outline: none !important;
+  border-color: #e7acac;
+  /* box-shadow: 0 0 10px #E7ACAC; */
+}
+
+#name-illus {
+  /* height: 100px; */
+  width: 15rem;
+}
+
+.forward-btn {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+}
+
+.forward-btn button {
+  border-style: none;
+  background-color: white;
+}
+
+.forward-btn div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 6rem;
+  width: 6rem;
+  border-radius: 50%;
+}
+
+.forward-btn img {
+  width: 3rem;
+}
+
+.enabled div {
+  background-color: #FF7676;
+}
+
+.disabled div {
+  background-color: #f8e8e6;
+}
+
+.progress-tracker {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.progress-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  width: 85vw;
+  height: 1.2rem;
+
+  background: #f8e8e6;
+  border-radius: 1rem;
+}
+
+.progress {
+  width: 14.16%;
+  height: 1.2rem;
+
+  background: #FF7676;
+  border-radius: 1rem;
+}
+
+.progress-number {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 2.4rem;
+  line-height: 125%;
+  text-align: center;
+
+  color: #FF7676;
+}
+
+.total-number {
+  color: #f8e8e6;
+}
+
+/* @media (max-width: 768px) {
+  .container-namePage{
+    padding: 0;
+    
+  }
+} */

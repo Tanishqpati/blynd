@@ -1,0 +1,168 @@
+html {
+  font-size: 62.5%;
+}
+
+.illus img {
+  width: 40rem;
+}
+
+#about {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 95vh;
+  gap: 2rem;
+}
+
+#features {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  align-items: center;
+  height: 95vh;
+}
+
+#home-text {
+  text-align: justify;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: 3rem;
+}
+
+#home-text h2 {
+  color: #FF7676;
+  font-weight: 800;
+  font-size: 4rem;
+  margin-bottom: 10rem;
+}
+
+#home-text p {
+  color: #6f9489;
+  text-align: justify;
+  font-size: 1.5rem;
+  line-height: 2;
+}
+
+.line1 {
+  margin-left: 50%;
+  border: none;
+  height: .2rem !important;
+  background: #FF7676;
+  opacity: 1;
+}
+
+.line2 {
+  margin-right: 50%;
+  border: none;
+  height: .2rem !important;
+  background: #FF7676;
+  opacity: 1;
+}
+
+#home-text-t {
+  text-align: justify;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  margin-left: 3rem;
+}
+
+#home-text-t h2 {
+  color: #FF7676;
+  text-align: justify;
+  font-weight: 800;
+  font-size: 4rem;
+  margin-bottom: 10rem;
+}
+
+#home-text-t p {
+  color: #6f9489;
+  text-align: justify;
+  font-size: 1.1rem;
+  line-height: 2;
+}
+
+#about-t {
+  height: 100vh;
+  gap: 0rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  margin-top: 10rem;
+}
+
+#about-t h2 {
+  color: #FF7676;
+  font-weight: 800;
+  font-size: 4rem;
+  padding-left: 20rem;
+  padding-bottom: 5rem;
+}
+
+#about-t p {
+  color: #6f9489;
+  text-align: justify;
+  font-size: 1.5rem;
+  line-height: 2;
+  padding: 0 10rem;
+}
+
+.thumbs-wrapper {
+  display: none;
+}
+
+.testi-parent {
+  height: 50vh;
+  width: 95vw;
+}
+
+@media (max-width: 768px) {
+
+  #about {
+    flex-direction: column-reverse;
+  }
+
+  #home-text {
+    width: 90%;
+    margin: 0;
+
+  }
+
+  #home-text p {
+    font-size: 2rem;
+    padding: 0 3rem;
+  }
+
+  .illus img {
+    margin-top: 5rem;
+    width: 30rem;
+  }
+
+  #features {
+    flex-direction: column-reverse;
+    gap: 5rem;
+
+  }
+
+  #about-t {
+    align-items: center;
+    gap: 5rem;
+    margin: 0;
+  }
+  #about-t p{
+    padding: 0 5rem;
+    font-size: 2rem;
+    text-align: justify;
+  }
+
+  #about-t h2 {
+    padding: 0;
+  }
+ 
+ 
+
+}

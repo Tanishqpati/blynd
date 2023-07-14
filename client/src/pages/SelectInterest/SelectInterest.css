@@ -1,0 +1,37 @@
+.interest-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.interest-btns-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.interest-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-style: none;
+    gap: .7rem;
+    
+    padding: 0 10px;
+    height: 31px;
+    background: #FFFFFF;
+    border: 1px solid;
+    border-radius: 20px;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.progress-selectinterest {
+    width: 70.83%;
+    height: 1.2rem;
+    background: #FF7676;
+    border-radius: 1rem;
+}

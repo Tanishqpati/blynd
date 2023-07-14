@@ -1,0 +1,45 @@
+.logout-illus{
+    height: 5rem;
+    width: 5rem;
+    background-color: #FF7676;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+.logout-modal-cont{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: fixed;
+    background-color: white;
+    border-radius: 2rem;
+    gap: 1rem;
+    padding: 2rem 2rem;
+    max-width: 30rem;
+}
+.logout-modal-cont h2{
+    color: black;
+    font-size: 2rem;
+
+}
+.logout-modal-cont p{
+    text-align: center;
+    color: #6F9489;
+}
+.yes-logout{
+    border-style: none;
+    width: 100%;
+    padding: 1rem 0;
+    border-radius: 3rem;
+    background-color: #FF7676;
+    color: white;
+    font-weight: 500;
+}
+.no-login{
+    border-style: none;
+    font-weight: 500;
+    color: #6F9489;
+    background-color: transparent;
+}

@@ -1,0 +1,58 @@
+.mainrow1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: .2rem solid #e7acac;
+    width: 100%;
+    padding: 2rem 0px;
+
+}
+
+.mainrow1 h1 {
+    color: black;
+    margin: 0;
+}
+
+.main-section-dateprofile {
+    width: 70vw;
+    display: flex;
+    height: 100vh;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: center;
+    gap: 5rem;
+}
+
+.verification {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 43rem;
+    align-items: flex-start;
+    gap: 1rem;
+
+}
+
+.verification p {
+    font-weight: 600;
+    font-size: 1.6rem;
+    color: #97AA95;
+    padding-left: 10px;
+}
+
+.verify-btn {
+    width: 100%;
+    height: 3.5rem;
+    background: #4285F4;
+    
+    border-radius: 3rem;
+    font-weight: 500;
+    font-size: 1.3rem;
+    text-align: left;
+    padding: 0 20px;
+    color: #FFFFFF;
+    border-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

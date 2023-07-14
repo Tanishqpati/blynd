@@ -1,0 +1,80 @@
+.settings-side-section {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    width: 30vw;
+    border-right: .2rem solid #E7ACAC;
+    gap: 4rem;
+}
+
+.side-section-menu{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    gap: 3rem;
+
+}
+
+
+.side-section-menu p{
+    font-weight: 500;
+    font-size: 1.6rem;
+    cursor: pointer;
+}
+
+
+
+.side-section-menu button {
+    width: 22.7rem;
+    height: 5.6rem;
+    background: #FF7676;
+    border-radius: 3rem;
+    font-weight: 500;
+    font-size: 1.6rem;
+    text-align: center;
+    color: #FFFFFF;
+    border-style: none;
+
+}
+
+.settings-side-row1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.6rem;
+    width: 100%;
+    padding: 1.8rem 1.8rem;
+}
+
+.settings-side-row1 span {
+    width: 6.5rem;
+    height: 6.5rem;
+    border-radius: 50%;
+}
+
+.settings-side-row1 img {
+    width: 6.5rem;
+    height: 6.5rem;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+#back-btn {
+    position: absolute;
+    top: 3rem;
+    left: 2.0rem;
+    height: 3.5rem;
+    width: 3.5rem;
+}
+
+.active {
+    color: black;
+
+}
+.non-active{
+    color: #97AA95;
+
+}

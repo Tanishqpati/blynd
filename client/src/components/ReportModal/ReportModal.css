@@ -1,0 +1,73 @@
+.upper-modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: #FF7676;
+    border-radius: 2rem 2rem 0 0;
+    padding: 2rem 2rem;
+    gap: 1rem;
+}
+
+.upper-modal h2 {
+    font-weight: 600;
+    font-size: 2rem;
+    line-height: 125%;
+    text-align: center;
+    color: #FFFFFF;
+}
+.upper-modal p{
+    font-weight: 400;
+font-size: 1rem;
+line-height: 125%;
+text-align: center;
+color: #FFFFFF;
+}
+.cross-row {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+}
+
+.cross-row span {
+    width: 15px;
+    height: 15px;
+    background: #EA4335;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.report-modal-cont {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: fixed;
+    background-color: white;
+    border-radius: 2rem;
+    /* gap: 3rem; */
+    max-width: 35rem;
+}
+.lower-modal{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+}
+.report-btn{
+display: flex;
+justify-content: flex-start;
+align-items: center;
+width: 100%;
+font-size: 1.5rem;
+color: black;
+padding: 1rem 1.5rem ;
+gap: 1rem;
+cursor: pointer;
+border-bottom: 1px solid black;
+}
